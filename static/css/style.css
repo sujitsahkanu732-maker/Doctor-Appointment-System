@@ -1,0 +1,533 @@
+/* 
+   Doctor Appointment System - Custom Styles
+   Responsive design with modern UI
+*/
+
+/* ==================== ROOT VARIABLES ==================== */
+:root {
+    --primary-color: #2563eb;
+    --secondary-color: #10b981;
+    --danger-color: #ef4444;
+    --warning-color: #f59e0b;
+    --dark-color: #1f2937;
+    --light-color: #f3f4f6;
+    --text-color: #374151;
+    --border-color: #e5e7eb;
+}
+
+/* ==================== GLOBAL STYLES ==================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: #f9fafb;
+}
+
+/* ==================== NAVIGATION ==================== */
+.navbar {
+    background: linear-gradient(135deg, var(--primary-color), #1d4ed8);
+    padding: 1rem 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white !important;
+}
+
+.navbar-brand:hover {
+    color: #e0e7ff !important;
+}
+
+.nav-link {
+    color: rgba(255, 255, 255, 0.9) !important;
+    margin: 0 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    color: white !important;
+    transform: translateY(-2px);
+}
+
+.btn-outline-light {
+    border: 2px solid white;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-light:hover {
+    background-color: white;
+    color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* ==================== HERO SECTION ==================== */
+.hero-section {
+    background: linear-gradient(135deg, var(--primary-color), #1d4ed8);
+    color: white;
+    padding: 100px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,138.7C960,139,1056,117,1152,101.3C1248,85,1344,75,1392,69.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
+    background-size: cover;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-section h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.hero-section p {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.hero-section .btn {
+    padding: 0.75rem 2rem;
+    font-size: 1.1rem;
+    margin: 0.5rem;
+}
+
+/* ==================== CARDS ==================== */
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+    background: linear-gradient(135deg, var(--primary-color), #1d4ed8);
+    color: white;
+    border: none;
+    border-radius: 10px 10px 0 0 !important;
+    font-weight: bold;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+/* ==================== FEATURES SECTION ==================== */
+.features-section {
+    padding: 80px 0;
+    background-color: white;
+}
+
+.feature-box {
+    padding: 2rem;
+    text-align: center;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.feature-box:hover {
+    background-color: var(--light-color);
+    transform: translateY(-5px);
+}
+
+.feature-icon {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.feature-box h4 {
+    color: var(--dark-color);
+    margin-bottom: 1rem;
+}
+
+/* ==================== FORMS ==================== */
+.form-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-label {
+    font-weight: 600;
+    color: var(--dark-color);
+}
+
+.form-control {
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0.75rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.25);
+}
+
+/* ==================== BUTTONS ==================== */
+.btn {
+    padding: 0.6rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    border: none;
+}
+
+.btn-primary:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
+}
+
+.btn-success {
+    background: var(--secondary-color);
+    border: none;
+}
+
+.btn-success:hover {
+    background: #059669;
+    transform: translateY(-2px);
+}
+
+.btn-danger {
+    background: var(--danger-color);
+    border: none;
+}
+
+.btn-danger:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+}
+
+.btn-warning {
+    background: var(--warning-color);
+    border: none;
+}
+
+.btn-warning:hover {
+    background: #d97706;
+    transform: translateY(-2px);
+}
+
+/* ==================== DASHBOARD ==================== */
+.dashboard-header {
+    background: linear-gradient(135deg, var(--primary-color), #1d4ed8);
+    color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+}
+
+.dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.stat-label {
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
+/* ==================== DOCTOR CARDS ==================== */
+.doctor-card {
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    background: white;
+    transition: all 0.3s ease;
+}
+
+.doctor-card:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 8px 16px rgba(37, 99, 235, 0.2);
+    transform: translateY(-3px);
+}
+
+.doctor-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), #1d4ed8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-right: 1.5rem;
+}
+
+.doctor-info h4 {
+    color: var(--dark-color);
+    margin-bottom: 0.5rem;
+}
+
+.doctor-specialization {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* ==================== APPOINTMENT TABLE ==================== */
+.table {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.table thead {
+    background: linear-gradient(135deg, var(--primary-color), #1d4ed8);
+    color: white;
+}
+
+.table tbody tr {
+    transition: all 0.3s ease;
+}
+
+.table tbody tr:hover {
+    background-color: var(--light-color);
+}
+
+/* ==================== BADGES ==================== */
+.badge {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+.badge-pending {
+    background-color: var(--warning-color);
+    color: white;
+}
+
+.badge-confirmed {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.badge-completed {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.badge-cancelled {
+    background-color: var(--danger-color);
+    color: white;
+}
+
+/* ==================== ALERTS ==================== */
+.alert {
+    border-radius: 8px;
+    border: none;
+    padding: 1rem 1.5rem;
+}
+
+/* ==================== FOOTER ==================== */
+footer {
+    background-color: var(--dark-color);
+    color: white;
+    padding: 3rem 0 1rem;
+    margin-top: 5rem;
+}
+
+.footer-links a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+/* ==================== PROFILE ==================== */
+.profile-header {
+    background: linear-gradient(135deg, var(--primary-color), #1d4ed8);
+    color: white;
+    padding: 3rem 2rem;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    border: 4px solid white;
+}
+
+/* ==================== RESPONSIVE DESIGN ==================== */
+
+/* Tablets */
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+    
+    .hero-section p {
+        font-size: 1rem;
+    }
+    
+    .dashboard-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .doctor-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .doctor-avatar {
+        margin: 0 auto 1rem;
+    }
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+    .hero-section {
+        padding: 60px 0;
+    }
+    
+    .form-container {
+        margin: 20px;
+        padding: 1.5rem;
+    }
+    
+    .table {
+        font-size: 0.875rem;
+    }
+    
+    .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+    }
+}
+
+/* ==================== ANIMATIONS ==================== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+/* ==================== LOADING SPINNER ==================== */
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+}
+
+/* ==================== UTILITY CLASSES ==================== */
+.text-muted {
+    color: #6b7280 !important;
+}
+
+.mb-4 {
+    margin-bottom: 1.5rem !important;
+}
+
+.mt-4 {
+    margin-top: 1.5rem !important;
+}
+
+.py-5 {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+}
+/* ==================== PROFILE PAGE FIX ==================== */
+/* Fix footer overlapping on profile page */
+footer {
+    margin-top: 150px !important;
+    position: relative;
+    clear: both;
+}
+
+/* Ensure main content has proper spacing */
+main {
+    min-height: calc(100vh - 250px);
+    margin-bottom: 100px;
+}
+
+/* Profile page specific */
+.profile-header {
+    position: relative;
+    z-index: 1;
+}
+
+.container.my-5 {
+    margin-bottom: 100px !important;
+}

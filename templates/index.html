@@ -1,0 +1,249 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Doctor Appointment System{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container hero-content">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <h1 class="display-4 fw-bold mb-3">Your Health, Our Priority</h1>
+                <p class="lead mb-4">
+                    Book appointments with qualified doctors easily and conveniently. 
+                    Get the medical care you need, when you need it.
+                </p>
+                <div class="d-flex flex-wrap gap-3">
+                    {% if not session.user_id %}
+                        <a href="{{ url_for('register') }}" class="btn btn-light btn-lg">
+                            <i class="bi bi-person-plus"></i> Get Started
+                        </a>
+                        <a href="{{ url_for('login') }}" class="btn btn-outline-light btn-lg">
+                            <i class="bi bi-box-arrow-in-right"></i> Login
+                        </a>
+                    {% else %}
+                        {% if session.user_type == 'patient' %}
+                            <a href="{{ url_for('view_doctors') }}" class="btn btn-light btn-lg">
+                                <i class="bi bi-search"></i> Find Doctors
+                            </a>
+                            <a href="{{ url_for('patient_dashboard') }}" class="btn btn-outline-light btn-lg">
+                                <i class="bi bi-speedometer2"></i> My Dashboard
+                            </a>
+                        {% elif session.user_type == 'doctor' %}
+                            <a href="{{ url_for('doctor_dashboard') }}" class="btn btn-light btn-lg">
+                                <i class="bi bi-speedometer2"></i> My Dashboard
+                            </a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="text-center">
+                    <i class="bi bi-hospital" style="font-size: 15rem; color: rgba(255, 255, 255, 0.2);"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Why Choose Us?</h2>
+            <p class="lead text-muted">Experience healthcare made simple and accessible</p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="feature-box">
+                    <div class="feature-icon">
+                        <i class="bi bi-calendar-check"></i>
+                    </div>
+                    <h4>Easy Appointment Booking</h4>
+                    <p class="text-muted">
+                        Book appointments with your preferred doctors in just a few clicks. 
+                        Choose date and time that works for you.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="feature-box">
+                    <div class="feature-icon">
+                        <i class="bi bi-people"></i>
+                    </div>
+                    <h4>Qualified Doctors</h4>
+                    <p class="text-muted">
+                        Access a network of experienced and qualified medical professionals 
+                        across various specializations.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="feature-box">
+                    <div class="feature-icon">
+                        <i class="bi bi-clock-history"></i>
+                    </div>
+                    <h4>24/7 Access</h4>
+                    <p class="text-muted">
+                        Manage your appointments anytime, anywhere. View your medical history 
+                        and upcoming appointments at your convenience.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="feature-box">
+                    <div class="feature-icon">
+                        <i class="bi bi-shield-check"></i>
+                    </div>
+                    <h4>Secure & Private</h4>
+                    <p class="text-muted">
+                        Your health information is protected with industry-standard security 
+                        measures. Your privacy is our top priority.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="feature-box">
+                    <div class="feature-icon">
+                        <i class="bi bi-bell"></i>
+                    </div>
+                    <h4>Appointment Reminders</h4>
+                    <p class="text-muted">
+                        Never miss an appointment with our reminder system. Stay updated 
+                        with your scheduled consultations.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="feature-box">
+                    <div class="feature-icon">
+                        <i class="bi bi-phone"></i>
+                    </div>
+                    <h4>Mobile Friendly</h4>
+                    <p class="text-muted">
+                        Access our platform from any device. Fully responsive design 
+                        ensures smooth experience on mobile, tablet, and desktop.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">How It Works</h2>
+            <p class="lead text-muted">Simple steps to book your appointment</p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-3 text-center">
+                <div class="mb-3">
+                    <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center" 
+                         style="width: 80px; height: 80px; font-size: 2rem;">
+                        1
+                    </div>
+                </div>
+                <h5>Register Account</h5>
+                <p class="text-muted">Create your account as a patient or doctor</p>
+            </div>
+            
+            <div class="col-md-3 text-center">
+                <div class="mb-3">
+                    <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center" 
+                         style="width: 80px; height: 80px; font-size: 2rem;">
+                        2
+                    </div>
+                </div>
+                <h5>Find Doctor</h5>
+                <p class="text-muted">Browse and search for doctors by specialization</p>
+            </div>
+            
+            <div class="col-md-3 text-center">
+                <div class="mb-3">
+                    <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center" 
+                         style="width: 80px; height: 80px; font-size: 2rem;">
+                        3
+                    </div>
+                </div>
+                <h5>Book Appointment</h5>
+                <p class="text-muted">Choose date, time, and provide reason for visit</p>
+            </div>
+            
+            <div class="col-md-3 text-center">
+                <div class="mb-3">
+                    <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center" 
+                         style="width: 80px; height: 80px; font-size: 2rem;">
+                        4
+                    </div>
+                </div>
+                <h5>Get Confirmation</h5>
+                <p class="text-muted">Receive confirmation and visit doctor on scheduled time</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Statistics Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row text-center g-4">
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <i class="bi bi-people feature-icon"></i>
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Happy Patients</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <i class="bi bi-person-badge feature-icon"></i>
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Qualified Doctors</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <i class="bi bi-calendar-check feature-icon"></i>
+                    <div class="stat-number">1000+</div>
+                    <div class="stat-label">Appointments</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <i class="bi bi-star-fill feature-icon"></i>
+                    <div class="stat-number">4.8/5</div>
+                    <div class="stat-label">Patient Rating</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action Section -->
+<section class="py-5 bg-primary text-white">
+    <div class="container text-center">
+        <h2 class="fw-bold mb-3">Ready to Get Started?</h2>
+        <p class="lead mb-4">Join thousands of satisfied patients who trust us with their healthcare needs</p>
+        {% if not session.user_id %}
+            <a href="{{ url_for('register') }}" class="btn btn-light btn-lg">
+                <i class="bi bi-person-plus"></i> Register Now
+            </a>
+        {% else %}
+            {% if session.user_type == 'patient' %}
+                <a href="{{ url_for('view_doctors') }}" class="btn btn-light btn-lg">
+                    <i class="bi bi-search"></i> Find a Doctor
+                </a>
+            {% endif %}
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+
+{% block title %}Patient Dashboard - Doctor Appointment System{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <!-- Dashboard Header -->
+    <div class="dashboard-header fade-in">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h2><i class="bi bi-speedometer2"></i> Welcome, {{ user.full_name }}!</h2>
+                <p class="mb-0">Manage your appointments and health records</p>
+            </div>
+            <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                <a href="{{ url_for('view_doctors') }}" class="btn btn-light">
+                    <i class="bi bi-plus-circle"></i> Book New Appointment
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Statistics Cards -->
+    <div class="dashboard-stats fade-in">
+        <div class="stat-card">
+            <i class="bi bi-calendar-check feature-icon" style="font-size: 2.5rem;"></i>
+            <div class="stat-number">{{ appointments|selectattr('status', 'equalto', 'Pending')|list|length }}</div>
+            <div class="stat-label">Pending</div>
+        </div>
+        <div class="stat-card">
+            <i class="bi bi-check-circle feature-icon" style="font-size: 2.5rem; color: #10b981;"></i>
+            <div class="stat-number">{{ appointments|selectattr('status', 'equalto', 'Confirmed')|list|length }}</div>
+            <div class="stat-label">Confirmed</div>
+        </div>
+        <div class="stat-card">
+            <i class="bi bi-clock-history feature-icon" style="font-size: 2.5rem; color: #f59e0b;"></i>
+            <div class="stat-number">{{ appointments|selectattr('status', 'equalto', 'Completed')|list|length }}</div>
+            <div class="stat-label">Completed</div>
+        </div>
+        <div class="stat-card">
+            <i class="bi bi-calendar-x feature-icon" style="font-size: 2.5rem; color: #ef4444;"></i>
+            <div class="stat-number">{{ appointments|selectattr('status', 'equalto', 'Cancelled')|list|length }}</div>
+            <div class="stat-label">Cancelled</div>
+        </div>
+    </div>
+    
+    <!-- Appointments Section -->
+    <div class="card fade-in">
+        <div class="card-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h5 class="mb-0"><i class="bi bi-list-ul"></i> My Appointments</h5>
+                </div>
+                <div class="col-auto">
+                    <!-- Filter Buttons -->
+                    <div class="btn-group btn-group-sm" role="group">
+                        <button type="button" class="btn btn-outline-light" onclick="filterAppointments('all')">All</button>
+                        <button type="button" class="btn btn-outline-light" onclick="filterAppointments('pending')">Pending</button>
+                        <button type="button" class="btn btn-outline-light" onclick="filterAppointments('confirmed')">Confirmed</button>
+                        <button type="button" class="btn btn-outline-light" onclick="filterAppointments('completed')">Completed</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            {% if appointments %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Doctor</th>
+                                <th>Specialization</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for appointment in appointments %}
+                            <tr class="appointment-row" data-status="{{ appointment.status }}">
+                                <td>{{ appointment.id }}</td>
+                                <td>
+                                    <strong>{{ appointment.doctor.user.full_name }}</strong>
+                                </td>
+                                <td>
+                                    <span class="text-primary">
+                                        <i class="bi bi-briefcase"></i> {{ appointment.doctor.specialization }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <i class="bi bi-calendar-event"></i> 
+                                    {{ appointment.appointment_date.strftime('%B %d, %Y') }}
+                                </td>
+                                <td>
+                                    <i class="bi bi-clock"></i> {{ appointment.appointment_time }}
+                                </td>
+                                <td>
+                                    {% if appointment.status == 'Pending' %}
+                                        <span class="badge badge-pending">
+                                            <i class="bi bi-hourglass-split"></i> Pending
+                                        </span>
+                                    {% elif appointment.status == 'Confirmed' %}
+                                        <span class="badge badge-confirmed">
+                                            <i class="bi bi-check-circle"></i> Confirmed
+                                        </span>
+                                    {% elif appointment.status == 'Completed' %}
+                                        <span class="badge badge-completed">
+                                            <i class="bi bi-check-circle-fill"></i> Completed
+                                        </span>
+                                    {% elif appointment.status == 'Cancelled' %}
+                                        <span class="badge badge-cancelled">
+                                            <i class="bi bi-x-circle"></i> Cancelled
+                                        </span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if appointment.status in ['Pending', 'Confirmed'] %}
+                                        <a href="{{ url_for('cancel_appointment', appointment_id=appointment.id) }}" 
+                                           class="btn btn-sm btn-danger" 
+                                           onclick="return confirmCancellation()">
+                                            <i class="bi bi-x-circle"></i> Cancel
+                                        </a>
+                                    {% else %}
+                                        <button class="btn btn-sm btn-secondary" disabled>
+                                            <i class="bi bi-dash-circle"></i> No Actions
+                                        </button>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="text-center py-5">
+                    <i class="bi bi-calendar-x" style="font-size: 5rem; color: #e5e7eb;"></i>
+                    <h4 class="mt-3 text-muted">No Appointments Yet</h4>
+                    <p class="text-muted">Book your first appointment with a qualified doctor</p>
+                    <a href="{{ url_for('view_doctors') }}" class="btn btn-primary">
+                        <i class="bi bi-plus-circle"></i> Book Appointment
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <!-- Quick Actions -->
+    <div class="row mt-4">
+        <div class="col-md-6 mb-3">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="bi bi-search feature-icon"></i>
+                    <h5>Find Doctors</h5>
+                    <p class="text-muted">Browse our network of qualified medical professionals</p>
+                    <a href="{{ url_for('view_doctors') }}" class="btn btn-primary">
+                        <i class="bi bi-search"></i> Browse Doctors
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="bi bi-person-circle feature-icon"></i>
+                    <h5>My Profile</h5>
+                    <p class="text-muted">View and update your personal information</p>
+                    <a href="{{ url_for('profile') }}" class="btn btn-primary">
+                        <i class="bi bi-person"></i> View Profile
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

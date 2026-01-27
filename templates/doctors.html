@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block title %}Find Doctors - Doctor Appointment System{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="text-center mb-5">
+        <h2 class="fw-bold"><i class="bi bi-people"></i> Our Qualified Doctors</h2>
+        <p class="lead text-muted">Find and book appointments with experienced medical professionals</p>
+    </div>
+    
+    <!-- Search Bar -->
+    <div class="row mb-4">
+        <div class="col-md-6 mx-auto">
+            <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-search"></i></span>
+                <input type="text" class="form-control" id="doctor-search" 
+                       placeholder="Search by name or specialization...">
+            </div>
+        </div>
+    </div>
+    
+    <!-- Doctors List -->
+    {% if doctors %}
+        <div class="row">
+            {% for doctor in doctors %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card doctor-card h-100">
+                    <div class="card-body">
+                        <div class="d-flex align-items-start mb-3">
+                            <div class="doctor-avatar me-3">
+                                {{ doctor.user.full_name[0] }}
+                            </div>
+                            <div class="flex-grow-1">
+                                <h4 class="mb-1">{{ doctor.user.full_name }}</h4>
+                                <p class="doctor-specialization mb-2">
+                                    <i class="bi bi-briefcase"></i> {{ doctor.specialization }}
+                                </p>
+                                <p class="text-muted mb-0">
+                                    <small>{{ doctor.qualification }}</small>
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <hr>
+                        
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span><i class="bi bi-award"></i> Experience:</span>
+                                <strong>{{ doctor.experience }} years</strong>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span><i class="bi bi-cash-coin"></i> Consultation Fee:</span>
+                                <strong>NPR {{ doctor.consultation_fee }}</strong>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span><i class="bi bi-calendar-week"></i> Available Days:</span>
+                                <small>{{ doctor.available_days }}</small>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span><i class="bi bi-clock"></i> Timing:</span>
+                                <small>{{ doctor.available_time }}</small>
+                            </div>
+                        </div>
+                        
+                        <hr>
+                        
+                        <div class="d-flex gap-2">
+                            {% if session.user_id and session.user_type == 'patient' %}
+                                <a href="{{ url_for('book_appointment', doctor_id=doctor.id) }}" 
+                                   class="btn btn-primary flex-grow-1">
+                                    <i class="bi bi-calendar-plus"></i> Book Appointment
+                                </a>
+                            {% elif not session.user_id %}
+                                <a href="{{ url_for('login') }}" class="btn btn-primary flex-grow-1">
+                                    <i class="bi bi-box-arrow-in-right"></i> Login to Book
+                                </a>
+                            {% else %}
+                                <button class="btn btn-secondary flex-grow-1" disabled>
+                                    <i class="bi bi-dash-circle"></i> Doctors Cannot Book
+                                </button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="text-center py-5">
+            <i class="bi bi-people" style="font-size: 5rem; color: #e5e7eb;"></i>
+            <h4 class="mt-3 text-muted">No Doctors Available</h4>
+            <p class="text-muted">Please check back later</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

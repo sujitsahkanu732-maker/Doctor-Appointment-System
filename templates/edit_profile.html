@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Profile - Doctor Appointment System{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card fade-in">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="bi bi-pencil-square"></i> Edit Profile</h5>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{{ url_for('edit_profile') }}" onsubmit="return validateProfileForm()">
+                        <h6 class="mb-3"><i class="bi bi-person"></i> Personal Information</h6>
+                        
+                        <div class="mb-3">
+                            <label for="full_name" class="form-label">Full Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="full_name" name="full_name" 
+                                   value="{{ user.full_name }}" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address <span class="text-danger">*</span></label>
+                            <input type="email" class="form-control" id="email" name="email" 
+                                   value="{{ user.email }}" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" id="phone" name="phone" 
+                                   value="{{ user.phone if user.phone else '' }}" 
+                                   pattern="[0-9]{10}" 
+                                   title="Enter a valid 10-digit phone number">
+                            <small class="text-muted">10-digit phone number</small>
+                        </div>
+                        
+                        {% if user.user_type == 'doctor' and doctor %}
+                        <hr class="my-4">
+                        <h6 class="mb-3"><i class="bi bi-briefcase"></i> Professional Information</h6>
+                        
+                        <div class="mb-3">
+                            <label for="specialization" class="form-label">Specialization <span class="text-danger">*</span></label>
+                            <select class="form-select" id="specialization" name="specialization" required>
+                                <option value="">-- Select Specialization --</option>
+                                <option value="Cardiologist" {% if doctor.specialization == 'Cardiologist' %}selected{% endif %}>Cardiologist</option>
+                                <option value="Dermatologist" {% if doctor.specialization == 'Dermatologist' %}selected{% endif %}>Dermatologist</option>
+                                <option value="ENT Specialist" {% if doctor.specialization == 'ENT Specialist' %}selected{% endif %}>ENT Specialist</option>
+                                <option value="Gynecologist" {% if doctor.specialization == 'Gynecologist' %}selected{% endif %}>Gynecologist</option>
+                                <option value="Neurologist" {% if doctor.specialization == 'Neurologist' %}selected{% endif %}>Neurologist</option>
+                                <option value="Orthopedic" {% if doctor.specialization == 'Orthopedic' %}selected{% endif %}>Orthopedic</option>
+                                <option value="Pediatrician" {% if doctor.specialization == 'Pediatrician' %}selected{% endif %}>Pediatrician</option>
+                                <option value="Psychiatrist" {% if doctor.specialization == 'Psychiatrist' %}selected{% endif %}>Psychiatrist</option>
+                                <option value="General Physician" {% if doctor.specialization == 'General Physician' %}selected{% endif %}>General Physician</option>
+                                <option value="Other" {% if doctor.specialization == 'Other' %}selected{% endif %}>Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="qualification" class="form-label">Qualification <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="qualification" name="qualification" 
+                                   value="{{ doctor.qualification }}" required>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="experience" class="form-label">Years of Experience</label>
+                                <input type="number" class="form-control" id="experience" name="experience" 
+                                       value="{{ doctor.experience }}" min="0" max="50">
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label for="consultation_fee" class="form-label">Consultation Fee (NPR) <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" id="consultation_fee" name="consultation_fee" 
+                                       value="{{ doctor.consultation_fee }}" min="0" step="0.01" required>
+                            </div>
+                        </div>
+                        {% endif %}
+                        
+                        <hr class="my-4">
+                        
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-check-circle"></i> Save Changes
+                            </button>
+                            <a href="{{ url_for('profile') }}" class="btn btn-outline-secondary">
+                                <i class="bi bi-x-circle"></i> Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
